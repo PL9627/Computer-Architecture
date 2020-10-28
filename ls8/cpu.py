@@ -2,6 +2,8 @@
 
 import sys
 
+HLT = 0b00000001
+
 
 class CPU:
     """Main CPU class."""
@@ -76,3 +78,7 @@ class CPU:
             IR = self.ram_read(self.pc)
             operand_a = self.ram_read(self.pc + 1)
             operand_b = self.ram_read(self.pc + 2)
+
+            if IR == HLT:
+                self.running = False
+                self.pc += 1
