@@ -4,7 +4,7 @@ import sys
 
 HLT = 0b00000001
 LDI = 0b10000010
-
+PRN = 0b01000111
 
 class CPU:
     """Main CPU class."""
@@ -86,3 +86,6 @@ class CPU:
             elif IR == LDI:
                 self.reg[operand_a] = operand_b
                 self.pc += 3
+            elif IR == PRN:
+                print(self.reg[operand_a])
+                self.pc += 2
