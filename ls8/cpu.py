@@ -3,6 +3,7 @@
 import sys
 
 HLT = 0b00000001
+LDI = 0b10000010
 
 
 class CPU:
@@ -82,3 +83,6 @@ class CPU:
             if IR == HLT:
                 self.running = False
                 self.pc += 1
+            elif IR == LDI:
+                self.reg[operand_a] = operand_b
+                self.pc += 3
