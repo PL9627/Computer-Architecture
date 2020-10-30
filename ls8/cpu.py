@@ -2,6 +2,7 @@
 
 import sys
 
+
 HLT = 0b00000001
 LDI = 0b10000010
 PRN = 0b01000111
@@ -28,7 +29,7 @@ class CPU:
 
         # For now, we've just hardcoded a program:
 
-        program = [
+        """ program = [
             # From print8.ls8
             0b10000010,  # LDI R0,8
             0b00000000,
@@ -40,7 +41,24 @@ class CPU:
 
         for instruction in program:
             self.ram[address] = instruction
-            address += 1
+            address += 1 """
+        print(sys.argv)
+
+        if len(sys.argv) != 2:
+            print("Wrong number of arguments, please pass file name")
+            sys.exit(1)
+
+        with open(sys.argv[1]) as f:
+            for line in f:
+                line_split = line.split('#')
+                IR = line_split[0].strip()
+
+                if IR == '':
+                    continue
+                IR_num = int(IR, 2)
+                self.ram[address] = IR_num
+                address += 1
+
 
     def alu(self, op, reg_a, reg_b):
         """ALU operations."""
