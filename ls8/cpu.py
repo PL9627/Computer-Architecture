@@ -124,5 +124,7 @@ class CPU:
                 self.pc += 2
             elif IR == POP:
                 reg_address = self.ram_read(self.pc + 1)
+                pop_val = self.ram[self.reg[self.sp]]
                 self.reg[self.sp] += 1
+                self.reg[reg_address] = pop_val
                 self.pc += 2
