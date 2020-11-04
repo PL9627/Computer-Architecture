@@ -19,6 +19,7 @@ class CPU:
         self.ram = [0] * 256
         self.reg = [0] * 8
         self.pc = 0
+        self.sp = 7
 
     def ram_read(self, address):
         return self.ram[address]
