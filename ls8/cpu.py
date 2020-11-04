@@ -7,6 +7,9 @@ HLT = 0b00000001
 LDI = 0b10000010
 PRN = 0b01000111
 MUL = 0b10100010
+PUSH = 0b01000101
+POP = 0b01000110
+
 
 class CPU:
     """Main CPU class."""
@@ -59,7 +62,6 @@ class CPU:
                 IR_num = int(IR, 2)
                 self.ram[address] = IR_num
                 address += 1
-
 
     def alu(self, op, reg_a, reg_b):
         """ALU operations."""
