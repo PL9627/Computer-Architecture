@@ -97,6 +97,8 @@ class CPU:
         """Run the CPU."""
         self.running = True
 
+        self.reg[self.sp] = len(self.ram) - 1
+
         while self.running:
             IR = self.ram_read(self.pc)
             operand_a = self.ram_read(self.pc + 1)
@@ -114,3 +116,13 @@ class CPU:
             elif IR == MUL:
                 self.reg[operand_a] *= self.reg[operand_b]
                 self.pc += 3
+            elif IR == PUSH:
+                reg_address = self.ram_read(self.pc + 1)
+                push_val = self.reg[reg_address]
+                self.reg[self.sp] -= 1
+                self.ram[self.reg[self.sp]] = push_val
+                self.pc += 2
+            elif IR == POP:
+                reg_address = self.ram_read(self.pc + 1)
+                self.reg[self.sp] += 1
+                self.pc += 2
