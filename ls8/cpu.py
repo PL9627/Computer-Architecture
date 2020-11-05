@@ -11,6 +11,7 @@ PUSH = 0b01000101
 POP = 0b01000110
 CALL = 0b01010000
 RET = 0b00010001
+ADD = 0b10100000
 
 
 class CPU:
@@ -71,7 +72,12 @@ class CPU:
 
         if op == "ADD":
             self.reg[reg_a] += self.reg[reg_b]
-        # elif op == "SUB": etc
+        elif op == "SUB": 
+            self.reg[reg_a] -= self.reg[reg_b]
+        elif op == "MUL": 
+            self.reg[reg_a] *= self.reg[reg_b]
+        elif op == "DIV": 
+            self.reg[reg_a] /= self.reg[reg_b]
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -118,6 +124,15 @@ class CPU:
             elif IR == MUL:
                 self.reg[operand_a] *= self.reg[operand_b]
                 self.pc += 3
+            elif IR == ADD:
+                reg1 = self.ram[self.pc + 1]
+                reg2 = self.ram[self.pc + 2]
+                
+                val1 = self.reg[reg1]
+                val2 = self.reg[reg2]
+
+                self.reg[reg1] = val1 + val2
+                self.pc += 3
             elif IR == PUSH:
                 reg_address = self.ram_read(self.pc + 1)
                 push_val = self.reg[reg_address]
@@ -130,3 +145,12 @@ class CPU:
                 self.reg[self.sp] += 1
                 self.reg[reg_address] = pop_val
                 self.pc += 2
+            elif IR == CALL:
+                self.reg[self.sp] -= 1
+                self.ram[self.reg[self.sp]] = self.pc + 2
+                reg_num = self.ram[self.pc + 1]
+                print(self.ram[-2:])
+                self.pc = self.reg[reg_num]
+            elif IR == RET:
+                self.pc = self.ram[self.reg[self.sp]]
+                self.reg[self.sp] += 1
