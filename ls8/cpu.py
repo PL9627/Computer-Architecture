@@ -158,3 +158,11 @@ class CPU:
             elif IR == RET:
                 self.pc = self.ram[self.reg[self.sp]]
                 self.reg[self.sp] += 1
+            elif IR == CMP:
+                pass
+            elif IR == JEQ:
+                pass
+            elif IR == JMP:
+                pass
+            elif IR == JNE:
+                pass
