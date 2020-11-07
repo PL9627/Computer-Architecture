@@ -167,7 +167,7 @@ class CPU:
                 self.pc = self.ram[self.reg[self.sp]]
                 self.reg[self.sp] += 1
             elif IR == CMP:
-                pass
+                self.alu("CMP", operand_a, operand_b)
             elif IR == JEQ:
                 pass
             elif IR == JMP:
