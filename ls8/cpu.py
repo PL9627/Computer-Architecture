@@ -168,9 +168,16 @@ class CPU:
                 self.reg[self.sp] += 1
             elif IR == CMP:
                 self.alu("CMP", operand_a, operand_b)
+                self.pc += 3
             elif IR == JEQ:
-                pass
+                if self.fl == 0b00000001:
+                    self.pc = self.reg[operand_a]
+                else:
+                    self.pc += 2
             elif IR == JMP:
                 self.pc = self.reg[operand_a]
             elif IR == JNE:
-                pass
+                if self.fl != 0b00000001:
+                    self.pc = self.reg[operand_a]
+                else:
+                    self.pc += 2
