@@ -171,6 +171,6 @@ class CPU:
             elif IR == JEQ:
                 pass
             elif IR == JMP:
-                pass
+                self.pc = self.reg[operand_a]
             elif IR == JNE:
                 pass
